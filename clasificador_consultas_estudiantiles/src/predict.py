@@ -11,6 +11,7 @@ from src.preprocess import clean_text
 BASE_DIR = Path(__file__).resolve().parents[1]
 MODEL_PATH = BASE_DIR / "modelo_consultas.pkl"
 VECTORIZER_PATH = BASE_DIR / "vectorizador_tfidf.pkl"
+CONFIDENCE_THRESHOLD = 45.0
 
 _model = None
 _vectorizer = None
@@ -52,12 +53,14 @@ def predict_category(texto: str, top_n: int = 3):
     clean_query = clean_text(texto)
     features = vectorizer.transform([clean_query])
 
-    predicted_category = model.predict(features)[0]
     probabilities = _probabilities_from_model(model, features)
     classes = model.classes_
 
-    category_probability = dict(zip(classes, probabilities))
-    confidence = float(category_probability[predicted_category] * 100)
+    max_probability_index = int(np.argmax(probabilities))
+    predicted_category = str(classes[max_probability_index])
+    confidence = float(probabilities[max_probability_index] * 100)
+    requires_review = confidence < CONFIDENCE_THRESHOLD
+    final_category = "Otros" if requires_review else predicted_category
 
     top_indexes = np.argsort(probabilities)[::-1][:top_n]
     top_categories = [
@@ -69,8 +72,11 @@ def predict_category(texto: str, top_n: int = 3):
     ]
 
     return {
-        "categoria": str(predicted_category),
+        "categoria": final_category,
+        "categoria_final": final_category,
+        "categoria_modelo": predicted_category,
         "confianza": round(confidence, 2),
         "top_3": top_categories,
         "texto_limpio": clean_query,
+        "requiere_revision": requires_review,
     }

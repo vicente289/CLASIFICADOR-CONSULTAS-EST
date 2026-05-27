@@ -122,6 +122,10 @@ La Regresión Logística Multiclase es un modelo supervisado que aprende a separ
 
 También se entrena Multinomial Naive Bayes. Este modelo es común en clasificación de texto porque trabaja bien con conteos o pesos de palabras. Se compara con Regresión Logística usando accuracy y F1-score macro.
 
+## Regla de baja confianza
+
+El sistema usa un umbral de confianza de 45%. Si la probabilidad máxima del modelo es menor a 45%, la consulta se considera ambigua. En ese caso, la aplicación clasifica la consulta como "Otros" y recomienda revisión manual.
+
 ## Métricas
 
 - Accuracy: proporción total de predicciones correctas.
