@@ -1,0 +1,32 @@
+REPORTE DE METRICAS - CLASIFICADOR DE CONSULTAS ESTUDIANTILES
+====================================================================
+Modelo final seleccionado: Regresion Logistica Multiclase
+
+Metricas generales del modelo final
+Accuracy: 0.8704
+Precision macro: 0.8810
+Recall macro: 0.8704
+F1-score macro: 0.8647
+
+Comparacion de modelos
+------------------------
+Regresion Logistica Multiclase: accuracy=0.8704, f1_macro=0.8647
+Multinomial Naive Bayes: accuracy=0.7778, f1_macro=0.7651
+
+Classification report
+------------------------
+                    precision    recall  f1-score   support
+
+     Inscripciones       1.00      1.00      1.00         6
+          Horarios       1.00      1.00      1.00         6
+             Pagos       1.00      0.50      0.67         6
+             Notas       0.83      0.83      0.83         6
+          Trámites       0.86      1.00      0.92         6
+Plataforma virtual       0.83      0.83      0.83         6
+             Becas       0.86      1.00      0.92         6
+          Exámenes       0.83      0.83      0.83         6
+             Otros       0.71      0.83      0.77         6
+
+          accuracy                           0.87        54
+         macro avg       0.88      0.87      0.86        54
+      weighted avg       0.88      0.87      0.86        54

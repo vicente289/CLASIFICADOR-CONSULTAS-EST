@@ -1,0 +1,271 @@
+consulta,categoria
+"¿Hasta cuándo puedo inscribirme?",Inscripciones
+"Buenos días quiero saber la fecha límite de inscripción",Inscripciones
+"No pude inscribirme a materias este semestre",Inscripciones
+"¿Cómo hago mi reinscripción para la carrera?",Inscripciones
+"Necesito registrar una materia pendiente",Inscripciones
+"¿Dónde se realiza la inscripción de nuevos estudiantes?",Inscripciones
+"Hola quisiera confirmar si sigo a tiempo para inscribirme",Inscripciones
+"Me sale error al intentar inscribir mis materias",Inscripciones
+"¿Puedo cambiar mi inscripción de una materia a otra?",Inscripciones
+"Quiero saber los requisitos para la inscripción",Inscripciones
+"Buenas tardes necesito ayuda con mi matrícula",Inscripciones
+"¿Cuándo empieza el periodo de inscripciones?",Inscripciones
+"No aparezco habilitado para inscribirme",Inscripciones
+"¿La inscripción se hace en línea o presencial?",Inscripciones
+"Tengo problemas para registrar asignaturas",Inscripciones
+"¿Puedo inscribirme si tengo una materia reprobada?",Inscripciones
+"Me olvidé hacer mi inscripción qué puedo hacer",Inscripciones
+"Solicito información para inscripción de primer semestre",Inscripciones
+"¿Qué documentos necesito para inscribirme?",Inscripciones
+"Quiero anular una materia inscrita",Inscripciones
+"Necesito agregar otra materia a mi inscripción",Inscripciones
+"¿Hasta qué hora atienden para inscripciones?",Inscripciones
+"No encuentro el formulario de inscripción",Inscripciones
+"¿Hay ampliación para la inscripción?",Inscripciones
+"Quiero confirmar si mi inscripción fue aceptada",Inscripciones
+"Mi materia no aparece para inscribirme",Inscripciones
+"¿Puedo inscribirme con deuda pendiente?",Inscripciones
+"Ayuda no pude completar mi registro académico",Inscripciones
+"Deseo saber si ya estoy inscrito en el sistema",Inscripciones
+"¿Cuándo publican los grupos para inscribirse?",Inscripciones
+"¿Dónde puedo ver mi horario de clases?",Horarios
+"Hola necesito saber el horario de matemáticas",Horarios
+"¿A qué hora empieza la clase de programación?",Horarios
+"No me aparece el horario del semestre",Horarios
+"¿Cuándo publican los horarios oficiales?",Horarios
+"Quiero cambiarme de turno por trabajo",Horarios
+"¿En qué aula tengo clases mañana?",Horarios
+"Tengo choque de horarios entre dos materias",Horarios
+"Buenas tardes cuál es mi grupo y horario",Horarios
+"¿El horario de laboratorio ya está disponible?",Horarios
+"Necesito el horario actualizado de la carrera",Horarios
+"¿Hay clases por la mañana o por la noche?",Horarios
+"No sé en qué aula pasar clases",Horarios
+"¿Puedo modificar mi horario después de inscribirme?",Horarios
+"Mi horario sale vacío en el sistema",Horarios
+"¿Dónde consulto los horarios por materia?",Horarios
+"Quiero saber si cambiaron el horario de física",Horarios
+"¿Qué días tengo clases presenciales?",Horarios
+"Necesito confirmar el turno que me asignaron",Horarios
+"El horario de una materia se cruza con otra",Horarios
+"¿Cuándo habilitan los horarios del nuevo semestre?",Horarios
+"Buenas quiero saber el aula de mi clase",Horarios
+"¿Hay horario especial para estudiantes que trabajan?",Horarios
+"No entiendo mi horario académico",Horarios
+"¿Dónde veo el cronograma semanal de clases?",Horarios
+"Me cambiaron de grupo y no sé el nuevo horario",Horarios
+"¿La clase será en la mañana o tarde?",Horarios
+"Necesito saber el horario de atención docente",Horarios
+"¿El horario publicado es definitivo?",Horarios
+"Tengo duda sobre los horarios de prácticas",Horarios
+"¿Cuánto debo pagar este mes?",Pagos
+"Hola quiero saber si tengo deuda pendiente",Pagos
+"No puedo generar mi boleta de pago",Pagos
+"¿Dónde pago la mensualidad?",Pagos
+"Necesito el monto exacto de la cuota",Pagos
+"¿Hasta cuándo puedo pagar sin multa?",Pagos
+"Me cobraron de más en la caja",Pagos
+"Quiero confirmar si mi pago fue registrado",Pagos
+"¿Puedo pagar por transferencia bancaria?",Pagos
+"No aparece mi recibo de pago",Pagos
+"Buenas tardes tengo consulta sobre aranceles",Pagos
+"¿Cuál es el costo de inscripción?",Pagos
+"Necesito pagar matrícula pero el sistema no carga",Pagos
+"¿Hay descuento por pago anticipado?",Pagos
+"Me sale pago pendiente aunque ya cancelé",Pagos
+"¿Dónde descargo mi factura?",Pagos
+"Quiero saber el saldo que debo",Pagos
+"¿Puedo pagar en cuotas?",Pagos
+"El banco rechazó mi pago",Pagos
+"Necesito comprobante de pago para presentar",Pagos
+"¿Cuánto es la multa por retraso?",Pagos
+"No sé si mi mensualidad está pagada",Pagos
+"¿Aceptan pago con tarjeta?",Pagos
+"Quiero actualizar mi comprobante de depósito",Pagos
+"Mi pago no se refleja en la plataforma",Pagos
+"¿Cuál es el número de cuenta para pagar?",Pagos
+"Tengo problemas con el código de pago",Pagos
+"Buenas necesito información de pagos universitarios",Pagos
+"¿Puedo cancelar mi deuda la próxima semana?",Pagos
+"El recibo sale con datos incorrectos",Pagos
+"¿Dónde puedo ver mis notas?",Notas
+"No aparece mi nota final",Notas
+"Hola quiero revisar mi calificación",Notas
+"¿Cuándo suben las notas del parcial?",Notas
+"Mi promedio está mal calculado",Notas
+"Necesito saber mi nota de laboratorio",Notas
+"¿Cómo solicito revisión de nota?",Notas
+"La docente no cargó mis calificaciones",Notas
+"¿Dónde veo mi kardex académico?",Notas
+"Tengo una nota pendiente en el sistema",Notas
+"Buenas tardes mi nota no coincide con el examen",Notas
+"¿Cuándo publican las notas finales?",Notas
+"Quiero reclamar una calificación incorrecta",Notas
+"No puedo descargar mi historial de notas",Notas
+"¿La nota de prácticas ya está registrada?",Notas
+"Me falta una calificación en una materia",Notas
+"¿Cuál es mi promedio general?",Notas
+"Necesito certificado de notas",Notas
+"Mi nota aparece como cero por error",Notas
+"¿Dónde consulto mis calificaciones del semestre?",Notas
+"El sistema muestra una nota antigua",Notas
+"Quiero saber si aprobé la materia",Notas
+"¿Pueden corregir mi nota final?",Notas
+"No veo las notas de evaluación continua",Notas
+"Necesito revisar mi acta de calificaciones",Notas
+"¿Cuándo cierran el registro de notas?",Notas
+"Mi nota no se actualizó después del reclamo",Notas
+"Buenas quisiera saber mis notas actuales",Notas
+"¿Dónde encuentro mi reporte de rendimiento?",Notas
+"Tengo duda sobre el cálculo del promedio",Notas
+"Necesito sacar un certificado de estudios",Trámites
+"¿Cómo solicito una constancia de alumno regular?",Trámites
+"Hola quiero hacer un trámite académico",Trámites
+"¿Dónde pido mi historial académico?",Trámites
+"Necesito legalizar mis documentos",Trámites
+"¿Cuánto tarda un certificado de notas?",Trámites
+"Quiero solicitar una carta de egreso",Trámites
+"¿Qué requisitos hay para un trámite de convalidación?",Trámites
+"Debo pedir una constancia para mi trabajo",Trámites
+"¿Dónde recojo mi certificado?",Trámites
+"Buenas tardes necesito iniciar trámite de titulación",Trámites
+"¿Cómo hago cambio de carrera?",Trámites
+"Necesito apostillar un documento universitario",Trámites
+"¿Puedo pedir certificado en línea?",Trámites
+"Quiero saber el costo de un trámite",Trámites
+"¿Qué documentos necesito para homologación?",Trámites
+"Solicito información para retirar mi diploma",Trámites
+"No sé dónde presentar una solicitud académica",Trámites
+"Necesito una constancia de inscripción",Trámites
+"¿Cuál es el procedimiento para convalidar materias?",Trámites
+"Quiero tramitar un duplicado de carnet",Trámites
+"¿Atienden trámites los sábados?",Trámites
+"Necesito firmar una solicitud de retiro",Trámites
+"¿Dónde se hace el trámite de reincorporación?",Trámites
+"Quiero pedir un certificado de conducta",Trámites
+"¿Cuáles son los pasos para solicitar un documento oficial?",Trámites
+"Mi trámite aparece observado",Trámites
+"Buenas necesito seguimiento de mi solicitud",Trámites
+"¿Puedo autorizar a otra persona para recoger documentos?",Trámites
+"Necesito una constancia para presentar en otra institución",Trámites
+"No puedo entrar a la plataforma virtual",Plataforma virtual
+"Olvidé mi contraseña del aula virtual",Plataforma virtual
+"Hola la plataforma no carga",Plataforma virtual
+"No puedo subir mi tarea al sistema",Plataforma virtual
+"¿Cómo recupero mi usuario de la plataforma?",Plataforma virtual
+"Me sale error al ingresar al campus virtual",Plataforma virtual
+"La clase virtual no aparece en mi cuenta",Plataforma virtual
+"No encuentro el enlace de la videoclase",Plataforma virtual
+"La plataforma se queda en blanco",Plataforma virtual
+"¿Dónde veo las tareas en línea?",Plataforma virtual
+"Buenas no puedo abrir el aula virtual",Plataforma virtual
+"El sistema dice contraseña incorrecta",Plataforma virtual
+"No me llega el correo para recuperar clave",Plataforma virtual
+"¿Cómo cambio mi contraseña?",Plataforma virtual
+"La plataforma virtual está caída",Plataforma virtual
+"No puedo descargar el material de clase",Plataforma virtual
+"Mi materia no aparece en Moodle",Plataforma virtual
+"Tengo problemas para enviar una actividad",Plataforma virtual
+"No puedo ingresar desde mi celular",Plataforma virtual
+"El campus virtual está muy lento",Plataforma virtual
+"¿Dónde está el foro de la materia?",Plataforma virtual
+"No abre el cuestionario en la plataforma",Plataforma virtual
+"Me bloquearon el usuario del sistema",Plataforma virtual
+"¿Cómo actualizo mis datos en la plataforma?",Plataforma virtual
+"No veo mis cursos virtuales",Plataforma virtual
+"Necesito ayuda con el acceso al aula en línea",Plataforma virtual
+"La tarea aparece cerrada en el sistema",Plataforma virtual
+"Buenas el enlace de la plataforma no funciona",Plataforma virtual
+"No puedo visualizar los videos de clase",Plataforma virtual
+"¿Quién me ayuda con soporte de plataforma?",Plataforma virtual
+"¿Cómo puedo postular a una beca?",Becas
+"Hola quiero saber requisitos para beca",Becas
+"¿Cuándo salen los resultados de becas?",Becas
+"Necesito renovar mi beca estudiantil",Becas
+"¿Qué promedio necesito para mantener la beca?",Becas
+"No aparezco en la lista de becarios",Becas
+"¿Dónde entrego documentos para la beca?",Becas
+"Quiero saber si califico a una ayuda económica",Becas
+"¿Hay beca para estudiantes nuevos?",Becas
+"Buenas tardes consulta sobre beca comedor",Becas
+"¿Cuándo pagan la beca?",Becas
+"Mi beca fue observada qué hago",Becas
+"Necesito formulario de solicitud de beca",Becas
+"¿Puedo postular si trabajo medio tiempo?",Becas
+"Quiero apelar el resultado de beca",Becas
+"¿Qué tipos de becas ofrece la universidad?",Becas
+"No sé si mi beca sigue vigente",Becas
+"¿Hasta cuándo reciben documentos de beca?",Becas
+"Necesito información de beca socioeconómica",Becas
+"¿La beca cubre matrícula?",Becas
+"Quiero actualizar mis datos para la beca",Becas
+"¿Dónde veo mi puntaje de beca?",Becas
+"Me rechazaron la beca y quiero reclamar",Becas
+"¿Puedo tener beca si reprobé una materia?",Becas
+"Buenas necesito orientación para postular a becas",Becas
+"¿Cuáles son los requisitos de renovación de beca?",Becas
+"No me depositaron el beneficio",Becas
+"¿La beca aplica para modalidad virtual?",Becas
+"Quiero saber el cronograma de convocatoria a becas",Becas
+"¿Dónde consulto mi estado de postulación?",Becas
+"¿Cuándo es el parcial?",Exámenes
+"Hola quiero saber la fecha del examen final",Exámenes
+"¿Dónde veo el cronograma de exámenes?",Exámenes
+"No pude rendir el examen por enfermedad",Exámenes
+"Necesito inscribirme al recuperatorio",Exámenes
+"¿A qué hora será el examen de cálculo?",Exámenes
+"¿El examen será presencial o virtual?",Exámenes
+"Quiero solicitar examen diferido",Exámenes
+"¿Cuándo publican el rol de exámenes?",Exámenes
+"No aparece mi aula para el parcial",Exámenes
+"Buenas tardes tengo duda sobre el final",Exámenes
+"¿Qué temas entran para el examen?",Exámenes
+"¿Puedo dar examen si tengo deuda?",Exámenes
+"Necesito justificar mi inasistencia al parcial",Exámenes
+"¿Cuándo es la segunda instancia?",Exámenes
+"No sé si estoy habilitado para rendir",Exámenes
+"¿Dónde se toma el examen de laboratorio?",Exámenes
+"Quiero saber la nota mínima del final",Exámenes
+"¿El parcial se reprogramó?",Exámenes
+"Tengo choque entre dos exámenes",Exámenes
+"¿Cómo solicito mesa especial de examen?",Exámenes
+"Necesito confirmar fecha de recuperatorio",Exámenes
+"¿El examen tiene modalidad oral?",Exámenes
+"Buenas quiero saber el horario del examen",Exámenes
+"No pude entrar al cuestionario del examen",Exámenes
+"¿Cuándo empieza la semana de exámenes?",Exámenes
+"¿Puedo cambiar mi fecha de examen?",Exámenes
+"Necesito información del examen de suficiencia",Exámenes
+"¿Dónde reviso si aprobé el parcial?",Exámenes
+"¿Hay examen extraordinario este semestre?",Exámenes
+"Hola necesito información general de la universidad",Otros
+"¿Dónde queda la biblioteca?",Otros
+"Quiero saber el horario de atención de secretaría",Otros
+"¿Cuál es el número de teléfono de la facultad?",Otros
+"Necesito hablar con coordinación",Otros
+"¿Dónde puedo dejar una sugerencia?",Otros
+"Tengo una consulta que no sé a qué área corresponde",Otros
+"¿Hay atención los feriados?",Otros
+"Quiero saber la dirección del campus",Otros
+"¿Dónde está la oficina de bienestar estudiantil?",Otros
+"Buenas tardes necesito orientación general",Otros
+"¿A quién contacto para una queja?",Otros
+"¿La universidad tiene transporte estudiantil?",Otros
+"¿Dónde encuentro el reglamento académico?",Otros
+"Necesito información sobre actividades extracurriculares",Otros
+"¿Hay cursos libres este semestre?",Otros
+"Quiero saber sobre talleres deportivos",Otros
+"¿Dónde se publica el calendario académico?",Otros
+"Tengo problemas y no sé con qué oficina hablar",Otros
+"¿Cuál es el correo de atención al estudiante?",Otros
+"Buenas quisiera recibir información institucional",Otros
+"¿Dónde queda el comedor universitario?",Otros
+"¿Hay seguro médico para estudiantes?",Otros
+"¿Cómo contacto al centro de estudiantes?",Otros
+"Necesito ayuda pero mi consulta es general",Otros
+"¿Dónde puedo consultar noticias de la carrera?",Otros
+"Quiero saber si habrá feria universitaria",Otros
+"¿Cuál es el procedimiento para hacer una denuncia?",Otros
+"¿Dónde puedo pedir orientación psicológica?",Otros
+"No encuentro información sobre servicios estudiantiles",Otros
