@@ -2,6 +2,20 @@
 
 Proyecto academico de Inteligencia Artificial para clasificar consultas estudiantiles.
 
+## App publicada
+
+La aplicación está disponible en:
+
+```text
+https://clasificador-consultas-est-lu2byc7hwbakpumyqsr39y.streamlit.app/
+```
+
+Repositorio:
+
+```text
+https://github.com/vicente289/CLASIFICADOR-CONSULTAS-EST
+```
+
 ## Ejecucion rapida
 
 Desde esta carpeta raiz:

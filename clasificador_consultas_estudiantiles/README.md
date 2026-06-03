@@ -2,6 +2,20 @@
 
 Proyecto académico de Inteligencia Artificial orientado a clasificar automáticamente consultas estudiantiles escritas en español.
 
+## App publicada
+
+La aplicación se encuentra publicada en Streamlit Community Cloud:
+
+```text
+https://clasificador-consultas-est-lu2byc7hwbakpumyqsr39y.streamlit.app/
+```
+
+Repositorio GitHub:
+
+```text
+https://github.com/vicente289/CLASIFICADOR-CONSULTAS-EST
+```
+
 ## Área y subárea
 
 - Área: Aprendizaje Supervisado

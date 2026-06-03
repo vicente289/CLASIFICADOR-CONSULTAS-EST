@@ -5,3 +5,4 @@ __pycache__/
 clasificador_consultas_estudiantiles/feedback_consultas.csv
 clasificador_consultas_estudiantiles/streamlit_*.log
 streamlit_*.log
+*_ENTREGA.zip
