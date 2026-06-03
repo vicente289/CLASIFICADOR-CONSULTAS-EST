@@ -70,6 +70,23 @@ CATEGORY_METRICS = [
     ["Otros", "71.00%", "83.00%", "77.00%", 6],
 ]
 
+TECHNICAL_REPORT_REPLACEMENTS = {
+    "Macro de retirada": "Recall macro",
+    "Macro de puntuación F1": "F1-score macro",
+    "Soporte para puntuaciones F1 de Precisión de Recuperación": (
+        "Categoría  Precisión  Recall  F1-score  Soporte"
+    ),
+    "Regresion Logistica Multiclase": "Regresión Logística Multiclase",
+    "Naive Bayes multinomial": "Naive Bayes Multinomial",
+    "Multinomial Naive Bayes": "Naive Bayes Multinomial",
+    "Precision macro": "Precisión macro",
+    "METRICAS": "MÉTRICAS",
+    "Metricas": "Métricas",
+    "Comparacion": "Comparación",
+    "Classification report": "Reporte técnico por categoría",
+    "precision    recall  f1-score   support": "Precisión    Recall  F1-score   Soporte",
+}
+
 
 def apply_custom_styles():
     """Aplica estilos visuales sin alterar la logica de la aplicacion."""
@@ -618,8 +635,9 @@ def render_top_categories(top_categories):
                 unsafe_allow_html=True,
             )
 
-    top_df = pd.DataFrame(top_categories)
-    st.dataframe(top_df, hide_index=True, width="stretch")
+    with st.expander("Ver detalle del Top 3", expanded=False):
+        top_df = pd.DataFrame(top_categories)
+        st.dataframe(top_df, hide_index=True, width="stretch")
 
 
 def render_summary_metrics():
@@ -642,13 +660,27 @@ def render_category_metrics_table():
     st.dataframe(metrics_df, hide_index=True, width="stretch")
 
 
+def clean_technical_report(report_text):
+    """Normaliza nombres visibles del reporte tecnico para presentacion."""
+    clean_report = report_text
+    for old_text, new_text in TECHNICAL_REPORT_REPLACEMENTS.items():
+        clean_report = clean_report.replace(old_text, new_text)
+    return clean_report
+
+
+def get_status_copy(requires_review, confidence):
+    if requires_review:
+        return "Revisión manual", "Baja confianza o consulta ambigua"
+    if confidence >= 70:
+        return "Clasificación aceptada", "Confianza alta"
+    return "Clasificación aceptada", "Confianza media"
+
+
 def render_prediction_result(result):
     final_category = result.get("categoria_final", result["categoria"])
-    model_category = result.get("categoria_modelo", final_category)
     confidence = float(result["confianza"])
     requires_review = bool(result.get("requiere_revision", False))
-    status_text = "Revisión manual" if requires_review else "Clasificada"
-    status_caption = "Baja confianza detectada" if requires_review else "Confianza suficiente"
+    status_text, status_caption = get_status_copy(requires_review, confidence)
 
     with st.container(border=True):
         st.markdown('<p class="section-kicker">Resultado del clasificador</p>', unsafe_allow_html=True)
@@ -656,7 +688,12 @@ def render_prediction_result(result):
 
         col_category, col_confidence, col_status = st.columns(3)
         with col_category:
-            render_metric_card("Categoría final", final_category, f"Modelo: {model_category}", "accent-cyan")
+            render_metric_card(
+                "Categoría predicha",
+                final_category,
+                f"Resultado final: {final_category}",
+                "accent-cyan",
+            )
         with col_confidence:
             render_metric_card("Confianza", f"{confidence:.2f}%", "Probabilidad máxima", "accent-blue")
         with col_status:
@@ -664,7 +701,7 @@ def render_prediction_result(result):
 
         render_top_categories(result["top_3"])
 
-        with st.expander("Ver texto procesado"):
+        with st.expander("Ver texto procesado", expanded=False):
             st.write(result["texto_limpio"])
 
 
@@ -752,7 +789,8 @@ def render_training_evidence():
 
             if report_path.exists():
                 with st.expander("Ver reporte técnico completo", expanded=False):
-                    st.text(report_path.read_text(encoding="utf-8"))
+                    report_text = report_path.read_text(encoding="utf-8")
+                    st.text(clean_technical_report(report_text))
             else:
                 st.info("El reporte aparecera despues de ejecutar python train_model.py.")
 
@@ -763,7 +801,11 @@ def render_training_evidence():
                 "Esta matriz corresponde al entrenamiento/evaluación del modelo, no a una consulta individual."
             )
             if matrix_path.exists():
-                st.image(str(matrix_path), caption="Matriz de confusión")
+                st.image(
+                    str(matrix_path),
+                    caption="Matriz de confusión",
+                    use_container_width=True,
+                )
             else:
                 st.info("La matriz aparecera despues de ejecutar python train_model.py.")
 
