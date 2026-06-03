@@ -1,0 +1,1 @@
+-r clasificador_consultas_estudiantiles/requirements.txt

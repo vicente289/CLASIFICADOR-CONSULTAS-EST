@@ -2,23 +2,29 @@
 
 from pathlib import Path
 from html import escape
+import sys
 
 import pandas as pd
 import streamlit as st
 
+
+BASE_DIR = Path(__file__).resolve().parent
+if str(BASE_DIR) not in sys.path:
+    sys.path.insert(0, str(BASE_DIR))
+
+from src.explain import explain_prediction
+from src.feedback import FEEDBACK_PATH, load_feedback_summary, save_feedback
 from src.predict import predict_category
 
 
-BASE_DIR = Path(__file__).resolve().parent
-
 CATEGORY_DESCRIPTIONS = {
-    "Inscripciones": "Registro, reinscripcion, materias y fechas de inscripcion.",
+    "Inscripciones": "Registro, reinscripción, materias y fechas de inscripción.",
     "Horarios": "Horarios de clases, aulas, turnos y cambios de grupo.",
     "Pagos": "Cuotas, mensualidades, deudas, recibos y pagos pendientes.",
-    "Notas": "Calificaciones, promedios, kardex y revision de notas.",
-    "Trámites": "Certificados, constancias, historial academico y documentos.",
-    "Plataforma virtual": "Acceso, contrasena, tareas, aulas virtuales y sistema en linea.",
-    "Becas": "Postulacion, requisitos, renovacion y resultados de becas.",
+    "Notas": "Calificaciones, promedios, kardex y revisión de notas.",
+    "Trámites": "Certificados, constancias, historial académico y documentos.",
+    "Plataforma virtual": "Acceso, contraseña, tareas, aulas virtuales y sistema en línea.",
+    "Becas": "Postulación, requisitos, renovación y resultados de becas.",
     "Exámenes": "Parciales, finales, recuperatorios, fechas y modalidad de examen.",
     "Otros": "Consultas generales o ambiguas.",
 }
@@ -29,6 +35,32 @@ EXAMPLE_QUERIES = [
     "¿Cuándo es el parcial?",
     "Necesito una constancia",
     "¿Dónde veo mi horario?",
+]
+
+MODEL_COMPARISON = [
+    ["Regresión Logística Multiclase", "87.04%", "86.47%", "Modelo final seleccionado"],
+    ["Naive Bayes Multinomial", "77.78%", "76.51%", "Modelo comparativo"],
+]
+
+DEFENSE_CARDS = [
+    {
+        "title": "Aprendizaje supervisado",
+        "body": "El sistema aprende con consultas etiquetadas y predice una de nueve clases academicas.",
+    },
+    {
+        "title": "PLN clásico",
+        "body": "TF-IDF transforma texto en vectores interpretables sin usar modelos pesados.",
+    },
+    {
+        "title": "Control de riesgo",
+        "body": "Las consultas con menos de 45% de confianza se derivan a revision manual.",
+    },
+]
+
+PUBLICATION_STEPS = [
+    ["Datos", "Usar consultas reales anonimizadas y eliminar información personal."],
+    ["Despliegue", "Publicar en Streamlit Community Cloud, Render o servidor universitario."],
+    ["Mejora continua", "Revisar el CSV de retroalimentación y ampliar el dataset validado."],
 ]
 
 SUMMARY_METRICS = [
@@ -439,8 +471,92 @@ def apply_custom_styles():
                 gap: 0.8rem;
             }
 
+            .defense-grid,
+            .publish-grid {
+                display: grid;
+                gap: 0.8rem;
+            }
+
+            .defense-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            .publish-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
             .model-card {
                 padding: 0.95rem;
+            }
+
+            .defense-card,
+            .publish-card {
+                border: 1px solid var(--line);
+                border-radius: 8px;
+                background: linear-gradient(180deg, rgba(16, 36, 61, 0.92), rgba(8, 21, 38, 0.88));
+                box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
+            }
+
+            .defense-card,
+            .publish-card {
+                min-height: 132px;
+                padding: 1rem;
+            }
+
+            .defense-title,
+            .publish-title {
+                color: #f8fbff;
+                font-weight: 820;
+                font-size: 1rem;
+                margin-bottom: 0.45rem;
+            }
+
+            .defense-body,
+            .publish-body {
+                color: var(--muted);
+                font-size: 0.91rem;
+                line-height: 1.5;
+            }
+
+            .explain-box {
+                border: 1px solid rgba(34, 211, 238, 0.22);
+                border-radius: 8px;
+                background: rgba(8, 21, 38, 0.62);
+                padding: 0.95rem;
+                margin-top: 1rem;
+            }
+
+            .word-chip-grid {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.55rem;
+                margin-top: 0.65rem;
+            }
+
+            .word-chip {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.45rem;
+                border: 1px solid rgba(34, 211, 238, 0.34);
+                border-radius: 999px;
+                background: rgba(34, 211, 238, 0.10);
+                color: #dff8ff;
+                padding: 0.42rem 0.7rem;
+                font-size: 0.9rem;
+                font-weight: 750;
+            }
+
+            .word-score {
+                color: var(--cyan);
+                font-size: 0.78rem;
+                font-weight: 850;
+            }
+
+            .feedback-note {
+                color: var(--muted);
+                font-size: 0.9rem;
+                line-height: 1.55;
+                margin: 0.2rem 0 0.7rem;
             }
 
             .model-label {
@@ -507,7 +623,9 @@ def apply_custom_styles():
             @media (max-width: 820px) {
                 .result-grid,
                 .top-grid,
-                .model-grid {
+                .model-grid,
+                .defense-grid,
+                .publish-grid {
                     grid-template-columns: 1fr;
                 }
 
@@ -640,6 +758,116 @@ def render_top_categories(top_categories):
         st.dataframe(top_df, hide_index=True, width="stretch")
 
 
+def render_prediction_explanation(original_query, result):
+    """Muestra una explicacion simple de las palabras relevantes."""
+    st.markdown("#### Explicación TF-IDF de la predicción")
+    try:
+        explanation = explain_prediction(
+            original_query,
+            categoria_modelo=result.get("categoria_modelo"),
+            top_n=8,
+        )
+    except Exception as error:
+        st.info(f"No se pudo generar la explicación técnica: {error}")
+        return
+
+    keywords = explanation["palabras_clave"]
+    if not keywords:
+        st.info("No se encontraron palabras relevantes en el vocabulario del modelo.")
+        return
+
+    chips = "\n".join(
+        f"""
+        <span class="word-chip">
+            {escape(item["palabra"])}
+            <span class="word-score">{item["aporte"]:.4f}</span>
+        </span>
+        """
+        for item in keywords
+    )
+    model_category = escape(str(explanation.get("categoria_modelo", "")))
+    method = escape(str(explanation.get("metodo", "")))
+    st.markdown(
+        f"""
+        <div class="explain-box">
+            <div class="defense-title">Palabras que apoyaron la categoría del modelo: {model_category}</div>
+            <div class="defense-body">
+                Estas palabras aparecen en el vocabulario TF-IDF y tuvieron mayor aporte para la decisión.
+                Método usado: {method}.
+            </div>
+            <div class="word-chip-grid">{chips}</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    with st.expander("Ver pesos técnicos de la explicación", expanded=False):
+        explanation_df = pd.DataFrame(keywords).rename(
+            columns={
+                "palabra": "Palabra",
+                "peso_tfidf": "Peso TF-IDF",
+                "aporte": "Aporte al modelo",
+                "peso_modelo": "Peso interno",
+            }
+        )
+        st.dataframe(explanation_df, hide_index=True, width="stretch")
+
+
+def render_feedback_summary():
+    summary = load_feedback_summary()
+    col_total, col_correct, col_fix, col_review = st.columns(4)
+    col_total.metric("Total", summary["total"])
+    col_correct.metric("Correctas", summary["correctas"])
+    col_fix.metric("Correcciones", summary["correcciones"])
+    col_review.metric("Revisión manual", summary["revision_manual"])
+
+
+def render_feedback_section(original_query, result):
+    st.markdown("#### Retroalimentación para mejora continua")
+    st.markdown(
+        """
+        <p class="feedback-note">
+            Cada validación permite construir un registro local de ejemplos reales
+            para revisar errores y ampliar el dataset en una siguiente versión.
+        </p>
+        """,
+        unsafe_allow_html=True,
+    )
+    render_feedback_summary()
+
+    final_category = result.get("categoria_final", result.get("categoria", "Otros"))
+    category_names = list(CATEGORY_DESCRIPTIONS.keys())
+    default_index = category_names.index(final_category) if final_category in category_names else 0
+
+    with st.form("feedback_form", clear_on_submit=True):
+        evaluation = st.radio(
+            "Validación de la clasificación",
+            ["Sí, fue correcta", "No, corregir categoría"],
+            horizontal=True,
+        )
+        corrected_category = st.selectbox(
+            "Categoría correcta si hubo error",
+            category_names,
+            index=default_index,
+        )
+        observation = st.text_input(
+            "Observación opcional",
+            placeholder="Ejemplo: consulta muy general, faltan palabras clave, caso nuevo...",
+        )
+        submitted = st.form_submit_button("Guardar retroalimentación", type="primary")
+
+    if submitted:
+        is_correct = evaluation == "Sí, fue correcta"
+        save_feedback(
+            original_query,
+            result,
+            clasificacion_correcta=is_correct,
+            categoria_corregida="" if is_correct else corrected_category,
+            observacion=observation,
+        )
+        st.success(f"Retroalimentación guardada en {FEEDBACK_PATH.name}.")
+
+
 def render_summary_metrics():
     metric_columns = st.columns(4)
     for column, metric in zip(metric_columns, SUMMARY_METRICS):
@@ -676,7 +904,7 @@ def get_status_copy(requires_review, confidence):
     return "Clasificación aceptada", "Confianza media"
 
 
-def render_prediction_result(result):
+def render_prediction_result(result, original_query):
     final_category = result.get("categoria_final", result["categoria"])
     confidence = float(result["confianza"])
     requires_review = bool(result.get("requiere_revision", False))
@@ -700,6 +928,8 @@ def render_prediction_result(result):
             render_metric_card("Estado", status_text, status_caption, "accent-violet")
 
         render_top_categories(result["top_3"])
+        render_prediction_explanation(original_query, result)
+        render_feedback_section(original_query, result)
 
         with st.expander("Ver texto procesado", expanded=False):
             st.write(result["texto_limpio"])
@@ -708,6 +938,10 @@ def render_prediction_result(result):
 def render_input_section():
     if "consulta" not in st.session_state:
         st.session_state["consulta"] = ""
+    if "last_result" not in st.session_state:
+        st.session_state["last_result"] = None
+    if "last_query" not in st.session_state:
+        st.session_state["last_query"] = ""
 
     with st.container(border=True):
         st.markdown('<p class="section-kicker">Consulta estudiantil</p>', unsafe_allow_html=True)
@@ -733,38 +967,107 @@ def render_input_section():
 
         try:
             result = predict_category(consulta)
-            render_prediction_result(result)
+            st.session_state["last_result"] = result
+            st.session_state["last_query"] = consulta
         except FileNotFoundError as error:
+            st.session_state["last_result"] = None
             st.error(str(error))
             st.info("Entrena el modelo ejecutando: python train_model.py")
         except ValueError as error:
+            st.session_state["last_result"] = None
             st.warning(str(error))
+
+    if st.session_state["last_result"]:
+        render_prediction_result(st.session_state["last_result"], st.session_state["last_query"])
 
 
 def render_model_info():
+    columns = st.columns(4)
+    items = [
+        ("Modelo final", "Regresión Logística Multiclase"),
+        ("Representación", "TF-IDF"),
+        ("Dataset", "270 consultas"),
+        ("Categorías", "9 clases"),
+    ]
+    for column, (label, value) in zip(columns, items):
+        with column:
+            st.markdown(
+                (
+                    '<div class="model-card">'
+                    f'<div class="model-label">{escape(label)}</div>'
+                    f'<div class="model-value">{escape(value)}</div>'
+                    "</div>"
+                ),
+                unsafe_allow_html=True,
+            )
+
+
+def render_model_comparison_table():
+    comparison_df = pd.DataFrame(
+        MODEL_COMPARISON,
+        columns=["Modelo", "Accuracy", "F1-score macro", "Rol en el proyecto"],
+    )
+    st.dataframe(comparison_df, hide_index=True, width="stretch")
+
+
+def render_info_card(title, body, card_class):
+    """Renderiza una tarjeta visual corta sin exponer HTML en pantalla."""
     st.markdown(
-        """
-        <div class="model-grid">
-            <div class="model-card">
-                <div class="model-label">Modelo final</div>
-                <div class="model-value">Regresión Logística Multiclase</div>
-            </div>
-            <div class="model-card">
-                <div class="model-label">Representación</div>
-                <div class="model-value">TF-IDF</div>
-            </div>
-            <div class="model-card">
-                <div class="model-label">Dataset</div>
-                <div class="model-value">270 consultas</div>
-            </div>
-            <div class="model-card">
-                <div class="model-label">Categorías</div>
-                <div class="model-value">9 clases</div>
-            </div>
-        </div>
-        """,
+        (
+            f'<div class="{card_class}">'
+            f'<div class="defense-title">{escape(title)}</div>'
+            f'<div class="defense-body">{escape(body)}</div>'
+            "</div>"
+        ),
         unsafe_allow_html=True,
     )
+
+
+def render_card_columns(items, card_class):
+    columns = st.columns(len(items))
+    for column, item in zip(columns, items):
+        with column:
+            if isinstance(item, dict):
+                title = item["title"]
+                body = item["body"]
+            else:
+                title, body = item
+            render_info_card(title, body, card_class)
+
+
+def render_readiness_panel():
+    with st.container(border=True):
+        st.markdown('<p class="section-kicker">Defensa y publicación</p>', unsafe_allow_html=True)
+        st.markdown(
+            '<h2 class="section-title">Fortalezas del prototipo alfa</h2>',
+            unsafe_allow_html=True,
+        )
+
+        render_card_columns(DEFENSE_CARDS, "defense-card")
+
+        readiness_tab, publication_tab, feedback_tab = st.tabs(
+            ["Argumentos de defensa", "Ruta de publicación", "Datos para mejorar"]
+        )
+
+        with readiness_tab:
+            st.markdown("#### Comparación de modelos")
+            render_model_comparison_table()
+            st.info(
+                "La Regresión Logística Multiclase fue seleccionada porque obtuvo "
+                "mejor F1-score macro que Naive Bayes en el conjunto de prueba."
+            )
+
+        with publication_tab:
+            render_card_columns(PUBLICATION_STEPS, "publish-card")
+
+        with feedback_tab:
+            st.markdown("#### Retroalimentación registrada")
+            render_feedback_summary()
+            if FEEDBACK_PATH.exists():
+                feedback_df = pd.read_csv(FEEDBACK_PATH, encoding="utf-8")
+                st.dataframe(feedback_df.tail(10), hide_index=True, width="stretch")
+            else:
+                st.caption("Aún no hay retroalimentación guardada.")
 
 
 def render_training_evidence():
@@ -777,8 +1080,8 @@ def render_training_evidence():
 
         report_path = BASE_DIR / "metrics_report.txt"
         matrix_path = BASE_DIR / "confusion_matrix.png"
-        metrics_tab, matrix_tab, info_tab = st.tabs(
-            ["Métricas", "Matriz de confusión", "Información del modelo"]
+        metrics_tab, matrix_tab, info_tab, comparison_tab = st.tabs(
+            ["Métricas", "Matriz de confusión", "Información del modelo", "Comparación"]
         )
 
         with metrics_tab:
@@ -792,7 +1095,7 @@ def render_training_evidence():
                     report_text = report_path.read_text(encoding="utf-8")
                     st.text(clean_technical_report(report_text))
             else:
-                st.info("El reporte aparecera despues de ejecutar python train_model.py.")
+                st.info("El reporte aparecerá después de ejecutar python train_model.py.")
 
         with matrix_tab:
             st.info(
@@ -804,13 +1107,21 @@ def render_training_evidence():
                 st.image(
                     str(matrix_path),
                     caption="Matriz de confusión",
-                    use_container_width=True,
+                    width="stretch",
                 )
             else:
-                st.info("La matriz aparecera despues de ejecutar python train_model.py.")
+                st.info("La matriz aparecerá después de ejecutar python train_model.py.")
 
         with info_tab:
             render_model_info()
+
+        with comparison_tab:
+            st.markdown("#### Modelo principal frente a modelo comparativo")
+            render_model_comparison_table()
+            st.caption(
+                "La comparación usa accuracy y F1-score macro para evaluar desempeño general "
+                "sin favorecer una sola categoría."
+            )
 
 
 def main():
@@ -823,6 +1134,7 @@ def main():
     render_header()
     render_input_section()
     render_training_evidence()
+    render_readiness_panel()
 
 
 if __name__ == "__main__":

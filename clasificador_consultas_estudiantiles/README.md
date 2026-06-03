@@ -50,8 +50,13 @@ clasificador_consultas_estudiantiles/
 ├── confusion_matrix.png
 ├── requirements.txt
 ├── README.md
+├── runtime.txt
+├── .streamlit/
+│   └── config.toml
 ├── src/
 │   ├── __init__.py
+│   ├── explain.py
+│   ├── feedback.py
 │   ├── preprocess.py
 │   ├── predict.py
 │   └── evaluate.py
@@ -93,6 +98,12 @@ Este comando:
 streamlit run app.py
 ```
 
+En Windows, si el comando `streamlit` no se reconoce, usar:
+
+```bash
+py -3.10 -m streamlit run app.py
+```
+
 Luego abre la URL local que muestra Streamlit, normalmente:
 
 ```text
@@ -126,6 +137,18 @@ También se entrena Multinomial Naive Bayes. Este modelo es común en clasificac
 
 El sistema usa un umbral de confianza de 45%. Si la probabilidad máxima del modelo es menor a 45%, la consulta se considera ambigua. En ese caso, la aplicación clasifica la consulta como "Otros" y recomienda revisión manual.
 
+## Explicabilidad del resultado
+
+La aplicación incluye una explicación ligera basada en TF-IDF. Después de clasificar una consulta, muestra las palabras que más aportaron a la decisión del modelo. Esto ayuda a defender académicamente por qué el sistema eligió una categoría y facilita el análisis de errores.
+
+## Retroalimentación para mejora continua
+
+La interfaz permite registrar si una clasificación fue correcta o si debe corregirse. La retroalimentación se guarda localmente en `feedback_consultas.csv`, archivo que no se sube a GitHub para evitar publicar datos ingresados por usuarios. Este registro puede revisarse posteriormente para ampliar el dataset con consultas reales anonimizadas.
+
+## Preparación para publicación
+
+El archivo `.streamlit/config.toml` define el tema visual oscuro de la aplicación y desactiva estadísticas de uso. El archivo `runtime.txt` fija Python 3.10.11 para despliegues compatibles. Para publicar, se recomienda subir el proyecto a GitHub y desplegar desde Streamlit Community Cloud o un servidor institucional.
+
 ## Métricas
 
 - Accuracy: proporción total de predicciones correctas.
@@ -158,3 +181,4 @@ Las pruebas verifican que el dataset exista, tenga las columnas correctas, inclu
 - Permitir retroalimentación del usuario para corregir predicciones.
 - Crear un panel administrativo para revisar consultas frecuentes.
 - Integrar el clasificador con un sistema de atención estudiantil.
+- Publicar una versión piloto en Streamlit Community Cloud, Render o un servidor universitario.

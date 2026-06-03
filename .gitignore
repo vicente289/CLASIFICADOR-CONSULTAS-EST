@@ -2,3 +2,6 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .venv/
+clasificador_consultas_estudiantiles/feedback_consultas.csv
+clasificador_consultas_estudiantiles/streamlit_*.log
+streamlit_*.log
