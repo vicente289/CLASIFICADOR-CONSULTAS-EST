@@ -23,3 +23,21 @@ La aplicacion principal esta en:
 ```text
 clasificador_consultas_estudiantiles/app.py
 ```
+
+## Publicar para que cualquier persona la vea
+
+La app esta preparada para Streamlit Community Cloud.
+
+Configuracion recomendada:
+
+- Repositorio: `vicente289/CLASIFICADOR-CONSULTAS-EST`
+- Rama: `main`
+- Archivo principal: `app.py`
+- Dependencias: `requirements.txt`
+- Tema visual: `.streamlit/config.toml`
+
+Pasos completos en:
+
+```text
+DEPLOYMENT.md
+```

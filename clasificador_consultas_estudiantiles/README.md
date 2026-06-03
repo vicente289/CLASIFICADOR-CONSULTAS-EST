@@ -147,7 +147,17 @@ La interfaz permite registrar si una clasificación fue correcta o si debe corre
 
 ## Preparación para publicación
 
-El archivo `.streamlit/config.toml` define el tema visual oscuro de la aplicación y desactiva estadísticas de uso. El archivo `runtime.txt` fija Python 3.10.11 para despliegues compatibles. Para publicar, se recomienda subir el proyecto a GitHub y desplegar desde Streamlit Community Cloud o un servidor institucional.
+El archivo `.streamlit/config.toml` ubicado en la raíz del repositorio define el tema visual oscuro de la aplicación y desactiva estadísticas de uso. El archivo `runtime.txt` fija Python 3.10.11 para despliegues compatibles. Para publicar, se recomienda subir el proyecto a GitHub y desplegar desde Streamlit Community Cloud o un servidor institucional.
+
+La ruta recomendada para publicar es:
+
+```text
+Repositorio: vicente289/CLASIFICADOR-CONSULTAS-EST
+Rama: main
+Archivo principal: app.py
+```
+
+La guía completa de despliegue está en `DEPLOYMENT.md`.
 
 ## Métricas
 
